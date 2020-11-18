@@ -9,6 +9,17 @@
 //function to get lat/long coordinates in console.log (for errors, make sure to unhide <h4> error message)
 
 //function to handle search input
+function watchSearchButton() {
+
+    $('.location-form').submit(event => {
+        event.preventDefault();
+
+        const location = $('.location-text-input').val();
+
+        console.log(location);
+    });
+    
+}
 
 
 /*** Results Section ***/
@@ -27,4 +38,4 @@
 /*** Document Ready ***/
 
 //document ready
-$()
+$(watchSearchButton);
