@@ -38,13 +38,16 @@
 
                     <input class="location-submit" type="submit" value="Search">
                 </form>
+                <h4 hidden>Something went wrong. Please try again using the following format: Address, City, State!</h4>
+                <h4 hidden>Something went wrong. Please make sure that your device's location is on and try again!</h4>
+
             </section>
 
             <section id="results-section">
                 <h2>Results</h2>
                 <div class="weather">
                     <h3>Weather</h3>
-                    <ul class="results-weather">
+                    <ul class="results-weather" hidden>
                         <li class="results-temp">Temperature (˚F):</li>
                         <li class="results-humidity">Humidity (%):</li>
                         <li class="results-clouds">Cloud Coverage (%):</li>
@@ -53,7 +56,7 @@
                 </div>
                 <div class="tides">
                     <h3>Tides</h3>
-                    <ul class="results-tides">
+                    <ul class="results-tides" hidden>
                         <li class="tide-one"></li>
                         <li class="tide-two"></li>
                         <li class="tide-three"></li>
@@ -62,11 +65,11 @@
                 </div>
                 <div class="sun-moon">
                     <h3>Sun & Moon</h3>
-                    <ul>
-                        <li>Sunrise:</li>
-                        <li>Sunset:</li>
-                        <li>Moon Phase:</li>
-                        <li>Moon Illumination:</li>
+                    <ul class="results-sun-moon" hidden>
+                        <li class="sunrise">Sunrise:</li>
+                        <li class="sunset">Sunset:</li>
+                        <li class="moon-phase">Moon Phase:</li>
+                        <li class="moon-illumination">Moon Illumination:</li>
                     </ul>
                 </div>
             </section>
