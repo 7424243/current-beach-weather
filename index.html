@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beach Weather</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="stye.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Current Beach Weather</h1>
+        <nav>
+            <ul>
+                <li><a href="#overview-section">Overview</a></li>
+                <li><a href="#location-section">Location</a></li>
+                <li><a href="#results-section">Results</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div>
+            <section id="overview-section">
+                <h2>Overview</h2>
+                <p class="app-description">This will provide a description of what the web app does.</p>
+                <p class="app-instructions">This will provide instructions on how to use the web app.</p>
+            </section>
+
+            <section id="location-section">
+                <h2>Location</h2>
+                <form class="location-form">
+                    <label class="location-label">Location:</label>
+                    <input class="location-text-input" type="text">
+
+                    <input class="location-submit" type="submit" value="Search">
+                </form>
+            </section>
+
+            <section id="results-section">
+                <h2>Results</h2>
+                <div class="weather">
+                    <h3>Weather</h3>
+                    <ul class="results-weather">
+                        <li class="results-temp">Temperature (˚F):</li>
+                        <li class="results-humidity">Humidity (%):</li>
+                        <li class="results-clouds">Cloud Coverage (%):</li>
+                        <li class="results-wind">Wind (mph):</li>
+                    </ul>
+                </div>
+                <div class="tides">
+                    <h3>Tides</h3>
+                    <ul class="results-tides">
+                        <li class="tide-one"></li>
+                        <li class="tide-two"></li>
+                        <li class="tide-three"></li>
+                        <li class="tide-four"></li>
+                    </ul>
+                </div>
+                <div class="sun-moon">
+                    <h3>Sun & Moon</h3>
+                    <ul>
+                        <li>Sunrise:</li>
+                        <li>Sunset:</li>
+                        <li>Moon Phase:</li>
+                        <li>Moon Illumination:</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <footer></footer>
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
