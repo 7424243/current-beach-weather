@@ -4,11 +4,11 @@
 
 //variable to hold apiKeys
 const apiKeyOpenCage = '186aeff2de054932ad6fc90fa36c6c37';
-const apiKeyStormGlass = '';
+const apiKeyOpenWeather = '42f989035320f151b7d2e585ddc2d3f8';
+const apiKeyStormGlass = '1307e8d4-29e9-11eb-8db0-0242ac130002-1307e960-29e9-11eb-8db0-0242ac130002';
 
 //variable to hold base urls
 const baseURLOpenCage = 'https://api.opencagedata.com/geocode/v1/json';
-const baseWeatherURLStormGlass = 'https://api.stormglass.io/v2/weather/point';
 const baseTideURLStormGlass = 'https://api.stormglass.io/v2/tide/extremes/point';
 const baseAstronomyURLStormGlass = 'https://api.stormglass.io/v2/astronomy/point';
 
@@ -40,67 +40,94 @@ function getCoordinates(location) {
     console.log(urlOpenCage);
 
     fetch(urlOpenCage)
-        .then(response => response.json())
-        .then(responseJson => getWeatherData(responseJson.results[0].geometry.lat, responseJson.results[0].geometry.lng))
-        .catch(error => {
+        .then(function (response) {
+            return response.json();
+        }) 
+        .then(function (responseJson) {
+
+            myData.lat = responseJson.results[0].geometry.lat;
+            myData.lng = responseJson.results[0].geometry.lng;
+            console.log(myData);
+
+            getWeatherData();
+            
+        })
+        .catch(function (error) {
             $('.invalid-message').removeAttr('hidden');
         });
 }
 
 //function to handle search input
 function watchSearchButton() {
-
     $('.location-form').submit(event => {
         event.preventDefault();
-
         const location = $('.location-text-input').val();
-
         console.log(location);
-
         getCoordinates(location);
     });
-
 }
 
 
 /*** Results Section Functions ***/
 
-
-//function to display weather results
-function displayWeatherData() {
-
-}
-
 //function to get weather data
-function getWeatherData(lat, lng) {
+function getWeatherData() {
 
-    console.log(lat, lng);
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${myData.lat}&lon=${myData.lng}&units=imperial&appid=${apiKeyOpenWeather}`)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function (responseJson) {
+            console.log(responseJson);
+            myData.temp = responseJson.main.temp;
+            myData.humidity = responseJson.main.humidity;
+            myData.sunrise = responseJson.sys.sunrise;
+            myData.sunset = responseJson.sys.sunset;
+            myData.timezone = responseJson.timezone;
+            myData.weatherType = responseJson.weather[0].main;
+            myData.weatherTypeDescription = responseJson.weather[0].description;
+            myData.weatherTypeIcon = responseJson.weather[0].icon;
+            myData.windSpeed = responseJson.wind.speed;
+            getTideData();
+        })
+        .catch(function (error) {
+            $('.invalid-message').removeAttr('hidden');
+        });
 
-    myData.lat = lat;
-    myData.lng = lng;
-    
-    
 }
 
-//function to display tide data
-function displayTideData() {
-
-}
 
 //function to get tide data
 function getTideData() {
 
-}
+    fetch(`https://api.stormglass.io/v2/tide/extremes/point?lat=${myData.lat}&lng=${myData.lng}`, {
+        headers: {
+            'Authorization': apiKeyStormGlass
+        }
+    }).then(function (response) {
+        return response.json()
+    })
+    .then(function (responseJson) {
+        console.log(responseJson);
 
-//function to display astronomy data
-function displayAstronomyData() {
+        myData.tides = [responseJson.data[0], responseJson.data[1], responseJson.data[2], responseJson.data[3]]
 
+        console.log(myData);
+
+        
+    });
 }
 
 //function to get astronomy data
 function getAstronomyData() {
+    
+}
+
+//function to display data
+function displayData() {
 
 }
+
 
 
 /*** Document Ready ***/
