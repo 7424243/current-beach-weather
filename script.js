@@ -165,6 +165,11 @@ function displayData() {
     $('.results-sun-moon').removeAttr('hidden');
 }
 
+//function to convert unix codes to times?
+function unixConversion() {
+
+}
+
 /*** Document Ready ***/
 
 //document ready
