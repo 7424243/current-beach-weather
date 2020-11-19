@@ -14,7 +14,17 @@ const baseAstronomyURLStormGlass = 'https://api.stormglass.io/v2/astronomy/point
 
 
 let myData = {};
-/*** Helper Functions ***/
+
+//function to handle search input
+function watchSearchButton() {
+    $('.location-form').submit(event => {
+        event.preventDefault();
+        const location = $('.location-text-input').val();
+        console.log(location);
+        getCoordinates(location);
+    });
+}
+
 
 //function to format query params
 function formatQueryParams(params) {
@@ -57,15 +67,7 @@ function getCoordinates(location) {
         });
 }
 
-//function to handle search input
-function watchSearchButton() {
-    $('.location-form').submit(event => {
-        event.preventDefault();
-        const location = $('.location-text-input').val();
-        console.log(location);
-        getCoordinates(location);
-    });
-}
+
 
 
 /*** Results Section Functions ***/
@@ -109,26 +111,59 @@ function getTideData() {
     })
     .then(function (responseJson) {
         console.log(responseJson);
-
         myData.tides = [responseJson.data[0], responseJson.data[1], responseJson.data[2], responseJson.data[3]]
-
         console.log(myData);
-
-        
+        getAstronomyData();
+    })
+    .catch(function (error) {
+        $('.invalid-message').removeAttr('hidden');
     });
 }
 
 //function to get astronomy data
 function getAstronomyData() {
-    
+
+    fetch(`https://api.stormglass.io/v2/astronomy/point?lat=${myData.lat}&lng=${myData.lng}`, {
+        headers: {
+            'Authorization': apiKeyStormGlass
+        }
+    }).then(function (response) {
+        return response.json()
+    })
+    .then(function (responseJson) {
+        console.log(responseJson);
+        myData.moonPhase = responseJson.data[0].moonPhase.current.text;
+        console.log(myData);
+        displayData();
+    })
+    .catch(function (error) {
+        $('.invalid-message').removeAttr('hidden');
+    });
 }
 
-//function to display data
+//function to display weather data
 function displayData() {
+    $('.results-weather').empty();
+    $('.results-tides').empty();
+    $('.results-sun-moon').empty();
 
+    $('.results-weather').append(`<li>Temperature: ${myData.temp}˚F</li>`);
+    $('.results-weather').append(`<li>Weather Type: ${myData.weatherType} - ${myData.weatherTypeDescription}</li>`);
+    $('.results-weather').append(`<li>Wind Speed: ${myData.windSpeed}%</li>`);
+    $('.results-weather').append(`<li>Humidity: ${myData.humidity}%</li>`);
+    $('.results-weather').removeAttr('hidden');
+
+    $('.results-tides').append(`<li>${myData.tides[0].type}: ${myData.tides[0].time}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[1].type}: ${myData.tides[1].time}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[2].type}: ${myData.tides[2].time}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[3].type}: ${myData.tides[3].time}</li>`);
+    $('.results-tides').removeAttr('hidden');
+
+    $('.results-sun-moon').append(`<li>Sunrise: ${myData.sunrise}</li>`);
+    $('.results-sun-moon').append(`<li>Sunset: ${myData.sunset}</li>`);
+    $('.results-sun-moon').append(`<li>Moon Phase: ${myData.moonPhase}</li>`);
+    $('.results-sun-moon').removeAttr('hidden');
 }
-
-
 
 /*** Document Ready ***/
 
