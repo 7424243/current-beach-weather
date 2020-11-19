@@ -13,6 +13,7 @@ const baseTideURLStormGlass = 'https://api.stormglass.io/v2/tide/extremes/point'
 const baseAstronomyURLStormGlass = 'https://api.stormglass.io/v2/astronomy/point';
 
 
+let myData = {};
 /*** Helper Functions ***/
 
 //function to format query params
@@ -24,18 +25,6 @@ function formatQueryParams(params) {
 
 
 /*** Location Section ***/
-
-//display lat/lng results
-function displayCoordinates(responseJson) {
-
-    console.log(responseJson);
-    $('.coordinates').empty();
-
-    $('.lat').text(responseJson.results[0].geometry.lat);
-    
-    
-    $('.lng').text(responseJson.results[0].geometry.lng);
-}
 
 //function to get lat/long coordinates in console.log (for errors, make sure to unhide <h4> error message)
 function getCoordinates(location) {
@@ -52,7 +41,7 @@ function getCoordinates(location) {
 
     fetch(urlOpenCage)
         .then(response => response.json())
-        .then(responseJson => displayCoordinates(responseJson))
+        .then(responseJson => getWeatherData(responseJson.results[0].geometry.lat, responseJson.results[0].geometry.lng))
         .catch(error => {
             $('.invalid-message').removeAttr('hidden');
         });
@@ -83,12 +72,14 @@ function displayWeatherData() {
 }
 
 //function to get weather data
-function getWeatherData(responseJson) {
-    const lat = responseJson.results[0].geometry.lat;
-    //const lng = responseJson.data.results[0].geometry.lng;
+function getWeatherData(lat, lng) {
 
-    console.log(lat);
-    //console.log(lng);
+    console.log(lat, lng);
+
+    myData.lat = lat;
+    myData.lng = lng;
+    
+    
 }
 
 //function to display tide data
