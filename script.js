@@ -15,6 +15,43 @@ const baseAstronomyURLStormGlass = 'https://api.stormglass.io/v2/astronomy/point
 
 let myData = {};
 
+//functions to handle browser location
+function getBrowserLocation() {
+    $('.browser-location-form').submit(event => {
+        event.preventDefault();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                displayPosition,
+                displayError,
+                {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}
+            );
+        }  else {
+            alert('Geolocation is not supported by this browser.')
+        };
+    });
+        
+}
+function displayPosition(position) {
+    //alert("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+    myData.lat = position.coords.latitude;
+
+    myData.lng = position.coords.longitude;
+    console.log(myData);
+
+    getWeatherData();
+}
+
+function displayError(error) {
+    var errors = {
+    1: 'Permission denied',
+    2: 'Position unavailable',
+    3: 'Request timeout'
+    };
+    alert("Error: " + errors[error.code]);
+}
+
+    
+
 //function to handle search input
 function watchSearchButton() {
     $('.location-form').submit(event => {
@@ -38,7 +75,7 @@ function formatQueryParams(params) {
 
 //function to get lat/long coordinates in console.log (for errors, make sure to unhide <h4> error message)
 function getCoordinates(location) {
-    /*
+    
     const params = {
         key: apiKeyOpenCage,
         q: location,
@@ -67,12 +104,12 @@ function getCoordinates(location) {
         .catch(function (error) {
             $('.invalid-message').removeAttr('hidden');
         });
-        */
+        
 
-        myData.lat = 32.717;
-        myData.lng = -117.163;
+        //myData.lat = 32.717;
+        //myData.lng = -117.163;
 
-        getWeatherData();
+       // getWeatherData(lat, lng);
 }
 
 
@@ -82,7 +119,9 @@ function getCoordinates(location) {
 
 //function to get weather data
 function getWeatherData() {
-    /*
+
+
+    
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${myData.lat}&lon=${myData.lng}&units=imperial&appid=${apiKeyOpenWeather}`)
         .then(function(response) {
             return response.json();
@@ -102,17 +141,17 @@ function getWeatherData() {
         .catch(function (error) {
             $('.invalid-message').removeAttr('hidden');
         });
-    */
     
-   myData.cityName = "San Diego";
-   myData.temp = 53;
-   myData.humidity = 93;
-   myData.timezone = -28800;
-   myData.weatherType = "Mist";
-   myData.weatherTypeDescription = "mist";
-   myData.weatherTypeIcon = "50d";
-   myData.windSpeed = 1.45;
-   getTideData();
+    
+  // myData.cityName = "San Diego";
+  // myData.temp = 53;
+  // myData.humidity = 93;
+  // myData.timezone = -28800;
+  // myData.weatherType = "Mist";
+  // myData.weatherTypeDescription = "mist";
+  // myData.weatherTypeIcon = "50d";
+  // myData.windSpeed = 1.45;
+  // getTideData();
     
 
 }
@@ -164,7 +203,7 @@ function getAstronomyData() {
     .catch(function (error) {
         $('.invalid-message').removeAttr('hidden');
     });
-    */
+   */ 
 
    myData.moonPhase = "Waxing crescent";
    myData.sunrise = "2020-11-20T14:25:13+00:00";
@@ -175,7 +214,7 @@ function getAstronomyData() {
 }
 
 //function to display weather data
-function displayData(tide1, sunrise) {
+function displayData() {
 
 $('.city').empty();
     $('.results-weather').empty();
@@ -183,13 +222,13 @@ $('.city').empty();
     $('.results-sun-moon').empty();
 
     
-    $('.city').text('City: ' + myData.cityName);
+    $('.city').append('City: ' + myData.cityName);
     $('.city').removeAttr('hidden');
     $('.city-message').removeAttr('hidden');
 
     
     $('.results-weather').append(`<li>Temperature: ${myData.temp}˚F</li>`);
-    $('.results-weather').append(`<li>Weather Type: ${myData.weatherType} - ${myData.weatherTypeDescription} ${myData.WeatherTypeIcon}</li>`);
+    $('.results-weather').append(`<li>Weather Type: ${myData.weatherType} - ${myData.weatherTypeDescription}</li>`);
     $('.results-weather').append(`<li>Wind Speed: ${myData.windSpeed}mph</li>`);
     $('.results-weather').append(`<li>Humidity: ${myData.humidity}%</li>`);
     $('.results-weather').removeAttr('hidden');
@@ -209,4 +248,4 @@ $('.city').empty();
 /*** Document Ready ***/
 
 //document ready
-$(watchSearchButton);
+$(watchSearchButton(), getBrowserLocation());

@@ -38,10 +38,15 @@
             <section id="location-section">
                 <h2>Location</h2>
                 <form class="location-form">
-                    <label class="location-label">Location:</label>
-                    <input class="location-text-input" type="text" placeholder="Ex: Address, City, State, Zip-Code, County">
+                    <label for="search-input" class="location-label">Location:</label>
+                    <input id="search-input" class="location-text-input" type="text" placeholder="Ex: Address, City, State, Zip-Code, County">
 
                     <input class="location-submit" type="submit" value="Search">
+
+                    
+                </form>
+                <form class="browser-location-form">
+                    <input class="browser-location" type="submit" value="Use Current Location">
                 </form>
 
                 <h4 class="invalid-message" hidden>Something went wrong. Please try again using the following format: Address, City, State, Zip-Code, Country! Keep in mind, the more detailed the location, the more accurate the results!</h4>
@@ -51,7 +56,7 @@
 
             <section id="results-section">
                 <h2>Results</h2>
-                <h3 class="city" hidden></h3>
+                <h3 class="city" hidden>City: </h3>
                 
                 <div class="results-categories">
                     <div class="weather">

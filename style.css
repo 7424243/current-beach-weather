@@ -10,7 +10,7 @@ footer {
     padding: 10px 10%;
 }
 
-footer p {
+footer p { 
     font-size: 10px;
 }
 
@@ -34,6 +34,19 @@ header {
 
 img {
     width: 7%;
+}
+
+input[type=submit], input[type=text] {
+    padding: 8px 18px;
+    font-family: 'Nanum Gothic', sans-serif;
+    border-radius: 5px;
+    border: thin solid darkgray;
+    background-color: #D3E0EA;
+}
+
+label {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 18px;
 }
 
 li {
@@ -73,7 +86,7 @@ p {
     justify-content: space-evenly;
 }
 
-.location-form {
+.location-form, .browser-location-form {
     text-align: center;
     margin-bottom: 20px;
 }
