@@ -10,15 +10,22 @@ footer {
     padding: 10px 10%;
 }
 
-h2 {
+h1 {
+    font-family: 'Waiting for the Sunrise', cursive;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+h2, h3 {
     text-align: center;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 header {
     text-align: center;
     background-color: #BBDBF6;
     margin: 0;
-    padding: 20px 10%;
+    padding: 10px 10%;
 }
 
 li {
@@ -29,6 +36,7 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 nav ul {
@@ -42,14 +50,27 @@ nav ul li a {
     margin: 0 20px 0 0;
 }
 
+p {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
 
 /* Classes */
+.city {
+    padding-top: 20px;
+}
+
 .location-form {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .location-text-input {
     width: 50%;
+}
+
+.overview-content {
+    margin-bottom: 20px;
 }
 
 .results-categories {
@@ -57,6 +78,12 @@ nav ul li a {
     flex-direction: column;
     justify-content: space-evenly;
 }
+
+.results-weather, .results-tides, .results-sun-moon {
+    font-family: 'Nanum Gothic', sans-serif;
+    line-height: 30px;
+}
+
 
 
 /* Psuedo Classes */
