@@ -10,6 +10,10 @@ footer {
     padding: 10px 10%;
 }
 
+footer p {
+    font-size: 10px;
+}
+
 h1 {
     font-family: 'Waiting for the Sunrise', cursive;
     font-weight: bold;
@@ -26,6 +30,10 @@ header {
     background-color: #BBDBF6;
     margin: 0;
     padding: 10px 10%;
+}
+
+img {
+    width: 7%;
 }
 
 li {
@@ -58,6 +66,11 @@ p {
 /* Classes */
 .city {
     padding-top: 20px;
+}
+
+.img-container {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .location-form {
