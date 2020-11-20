@@ -19,6 +19,7 @@ let myData = {};
 function getBrowserLocation() {
     $('.browser-location-form').submit(event => {
         event.preventDefault();
+        $('.submit-message').removeAttr('hidden');
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 displayPosition,
@@ -32,12 +33,11 @@ function getBrowserLocation() {
         
 }
 function displayPosition(position) {
-    //alert("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
-    myData.lat = position.coords.latitude;
 
+    myData.lat = position.coords.latitude;
     myData.lng = position.coords.longitude;
     console.log(myData);
-
+    
     getWeatherData();
 }
 
@@ -47,7 +47,7 @@ function displayError(error) {
     2: 'Position unavailable',
     3: 'Request timeout'
     };
-    alert("Error: " + errors[error.code]);
+    alert('Error: ' + errors[error.code] + '. Please try typing in the desired location in the input on the web page.');
 }
 
     
@@ -58,6 +58,7 @@ function watchSearchButton() {
         event.preventDefault();
         const location = $('.location-text-input').val();
         console.log(location);
+        $('.submit-message').removeAttr('hidden');
         getCoordinates(location);
     });
 }
@@ -102,6 +103,7 @@ function getCoordinates(location) {
             
         })
         .catch(function (error) {
+            $('.submit-message').attr('hidden', true);
             $('.invalid-message').removeAttr('hidden');
         });
         
@@ -139,6 +141,7 @@ function getWeatherData() {
             getTideData();
         })
         .catch(function (error) {
+            $('.submit-message').attr('hidden', true);
             $('.invalid-message').removeAttr('hidden');
         });
     
@@ -159,7 +162,7 @@ function getWeatherData() {
 
 //function to get tide data
 function getTideData() {
-    /*
+    
     fetch(`https://api.stormglass.io/v2/tide/extremes/point?lat=${myData.lat}&lng=${myData.lng}`, {
         headers: {
             'Authorization': apiKeyStormGlass
@@ -174,17 +177,18 @@ function getTideData() {
         getAstronomyData();
     })
     .catch(function (error) {
+        $('.submit-message').attr('hidden', true);
         $('.invalid-message').removeAttr('hidden');
     });
-    */
-   myData.tides = [{time: "2020-11-20T02:52:00+00:00", type: "low"}, {time: "2020-11-20T10:18:00+00:00", type: "high"}, {time: "2020-11-20T13:59:00+00:00", type: "low"}, {time: "2020-11-20T20:04:00+00:00", type: "high"}]
-   getAstronomyData();
+    
+   //myData.tides = [{time: "2020-11-20T02:52:00+00:00", type: "low"}, {time: "2020-11-20T10:18:00+00:00", type: "high"}, {time: "2020-11-20T13:59:00+00:00", type: "low"}, {time: "2020-11-20T20:04:00+00:00", type: "high"}]
+   //getAstronomyData();
 
 }
 
 //function to get astronomy data
 function getAstronomyData() {
-    /*
+    
     fetch(`https://api.stormglass.io/v2/astronomy/point?lat=${myData.lat}&lng=${myData.lng}`, {
         headers: {
             'Authorization': apiKeyStormGlass
@@ -201,30 +205,34 @@ function getAstronomyData() {
         displayData();
     })
     .catch(function (error) {
+        $('.submit-message').attr('hidden', true);
         $('.invalid-message').removeAttr('hidden');
     });
-   */ 
+   
 
-   myData.moonPhase = "Waxing crescent";
-   myData.sunrise = "2020-11-20T14:25:13+00:00";
-   myData.sunset = "2020-11-20T00:46:35+00:00";
-   console.log(myData);
-   displayData();
+   //myData.moonPhase = "Waxing crescent";
+   //myData.sunrise = "2020-11-20T14:25:13+00:00";
+   //myData.sunset = "2020-11-20T00:46:35+00:00";
+   //console.log(myData);
+   //displayData();
 
 }
 
 //function to display weather data
 function displayData() {
 
-$('.city').empty();
+    
+    
+    $('.city').empty();
     $('.results-weather').empty();
     $('.results-tides').empty();
     $('.results-sun-moon').empty();
+    
 
     
     $('.city').append('City: ' + myData.cityName);
     $('.city').removeAttr('hidden');
-    $('.city-message').removeAttr('hidden');
+    $('.city-warning').removeAttr('hidden')
 
     
     $('.results-weather').append(`<li>Temperature: ${myData.temp}˚F</li>`);
@@ -243,6 +251,9 @@ $('.city').empty();
     $('.results-sun-moon').append(`<li>Sunset: ${new Date(myData.sunset).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit'})}</li>`);
     $('.results-sun-moon').append(`<li>Moon Phase: ${myData.moonPhase}</li>`);
     $('.results-sun-moon').removeAttr('hidden');
+
+    $('.submit-message').attr('hidden', true);
+    $('.location-text-input').val('');
 }
 
 /*** Document Ready ***/
