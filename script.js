@@ -38,6 +38,7 @@ function formatQueryParams(params) {
 
 //function to get lat/long coordinates in console.log (for errors, make sure to unhide <h4> error message)
 function getCoordinates(location) {
+    /*
     const params = {
         key: apiKeyOpenCage,
         q: location,
@@ -56,6 +57,7 @@ function getCoordinates(location) {
         .then(function (responseJson) {
 
             myData.lat = responseJson.results[0].geometry.lat;
+
             myData.lng = responseJson.results[0].geometry.lng;
             console.log(myData);
 
@@ -65,6 +67,12 @@ function getCoordinates(location) {
         .catch(function (error) {
             $('.invalid-message').removeAttr('hidden');
         });
+        */
+
+        myData.lat = 32.717;
+        myData.lng = -117.163;
+
+        getWeatherData();
 }
 
 
@@ -74,7 +82,7 @@ function getCoordinates(location) {
 
 //function to get weather data
 function getWeatherData() {
-
+    /*
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${myData.lat}&lon=${myData.lng}&units=imperial&appid=${apiKeyOpenWeather}`)
         .then(function(response) {
             return response.json();
@@ -94,13 +102,25 @@ function getWeatherData() {
         .catch(function (error) {
             $('.invalid-message').removeAttr('hidden');
         });
+    */
+    
+   myData.cityName = "San Diego";
+   myData.temp = 53;
+   myData.humidity = 93;
+   myData.timezone = -28800;
+   myData.weatherType = "Mist";
+   myData.weatherTypeDescription = "mist";
+   myData.weatherTypeIcon = "50d";
+   myData.windSpeed = 1.45;
+   getTideData();
+    
 
 }
 
 
 //function to get tide data
 function getTideData() {
-
+    /*
     fetch(`https://api.stormglass.io/v2/tide/extremes/point?lat=${myData.lat}&lng=${myData.lng}`, {
         headers: {
             'Authorization': apiKeyStormGlass
@@ -117,11 +137,15 @@ function getTideData() {
     .catch(function (error) {
         $('.invalid-message').removeAttr('hidden');
     });
+    */
+   myData.tides = [{time: "2020-11-20T02:52:00+00:00", type: "low"}, {time: "2020-11-20T10:18:00+00:00", type: "high"}, {time: "2020-11-20T13:59:00+00:00", type: "low"}, {time: "2020-11-20T20:04:00+00:00", type: "high"}]
+   getAstronomyData();
+
 }
 
 //function to get astronomy data
 function getAstronomyData() {
-
+    /*
     fetch(`https://api.stormglass.io/v2/astronomy/point?lat=${myData.lat}&lng=${myData.lng}`, {
         headers: {
             'Authorization': apiKeyStormGlass
@@ -140,12 +164,20 @@ function getAstronomyData() {
     .catch(function (error) {
         $('.invalid-message').removeAttr('hidden');
     });
+    */
+
+   myData.moonPhase = "Waxing crescent";
+   myData.sunrise = "2020-11-20T14:25:13+00:00";
+   myData.sunset = "2020-11-20T00:46:35+00:00";
+   console.log(myData);
+   displayData();
+
 }
 
 //function to display weather data
-function displayData() {
+function displayData(tide1, sunrise) {
 
-    $('.city').empty();
+$('.city').empty();
     $('.results-weather').empty();
     $('.results-tides').empty();
     $('.results-sun-moon').empty();
@@ -157,26 +189,21 @@ function displayData() {
 
     
     $('.results-weather').append(`<li>Temperature: ${myData.temp}˚F</li>`);
-    $('.results-weather').append(`<li>Weather Type: ${myData.weatherType} - ${myData.weatherTypeDescription}</li>`);
-    $('.results-weather').append(`<li>Wind Speed: ${myData.windSpeed}%</li>`);
+    $('.results-weather').append(`<li>Weather Type: ${myData.weatherType} - ${myData.weatherTypeDescription} ${myData.WeatherTypeIcon}</li>`);
+    $('.results-weather').append(`<li>Wind Speed: ${myData.windSpeed}mph</li>`);
     $('.results-weather').append(`<li>Humidity: ${myData.humidity}%</li>`);
     $('.results-weather').removeAttr('hidden');
 
-    $('.results-tides').append(`<li>${myData.tides[0].type}: ${myData.tides[0].time}</li>`);
-    $('.results-tides').append(`<li>${myData.tides[1].type}: ${myData.tides[1].time}</li>`);
-    $('.results-tides').append(`<li>${myData.tides[2].type}: ${myData.tides[2].time}</li>`);
-    $('.results-tides').append(`<li>${myData.tides[3].type}: ${myData.tides[3].time}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[0].type}: ${new Date(myData.tides[0].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit'})}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[1].type}: ${new Date(myData.tides[1].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit'})}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[2].type}: ${new Date(myData.tides[2].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit'})}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[3].type}: ${new Date(myData.tides[3].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit'})}</li>`);
     $('.results-tides').removeAttr('hidden');
 
-    $('.results-sun-moon').append(`<li>Sunrise: ${myData.sunrise}</li>`);
-    $('.results-sun-moon').append(`<li>Sunset: ${myData.sunset}</li>`);
+    $('.results-sun-moon').append(`<li>Sunrise: ${new Date(myData.sunrise).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit'})}</li>`);
+    $('.results-sun-moon').append(`<li>Sunset: ${new Date(myData.sunset).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit'})}</li>`);
     $('.results-sun-moon').append(`<li>Moon Phase: ${myData.moonPhase}</li>`);
     $('.results-sun-moon').removeAttr('hidden');
-}
-
-//function to convert unix codes to times?
-function conversion() {
-
 }
 
 /*** Document Ready ***/
