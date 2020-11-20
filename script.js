@@ -81,10 +81,9 @@ function getWeatherData() {
         })
         .then(function (responseJson) {
             console.log(responseJson);
+            myData.cityName = responseJson.name;
             myData.temp = responseJson.main.temp;
             myData.humidity = responseJson.main.humidity;
-            myData.sunrise = responseJson.sys.sunrise;
-            myData.sunset = responseJson.sys.sunset;
             myData.timezone = responseJson.timezone;
             myData.weatherType = responseJson.weather[0].main;
             myData.weatherTypeDescription = responseJson.weather[0].description;
@@ -133,6 +132,8 @@ function getAstronomyData() {
     .then(function (responseJson) {
         console.log(responseJson);
         myData.moonPhase = responseJson.data[0].moonPhase.current.text;
+        myData.sunrise = responseJson.data[0].sunrise;
+        myData.sunset = responseJson.data[0].sunset;
         console.log(myData);
         displayData();
     })
@@ -143,10 +144,18 @@ function getAstronomyData() {
 
 //function to display weather data
 function displayData() {
+
+    $('.city').empty();
     $('.results-weather').empty();
     $('.results-tides').empty();
     $('.results-sun-moon').empty();
 
+    
+    $('.city').text('City: ' + myData.cityName);
+    $('.city').removeAttr('hidden');
+    $('.city-message').removeAttr('hidden');
+
+    
     $('.results-weather').append(`<li>Temperature: ${myData.temp}˚F</li>`);
     $('.results-weather').append(`<li>Weather Type: ${myData.weatherType} - ${myData.weatherTypeDescription}</li>`);
     $('.results-weather').append(`<li>Wind Speed: ${myData.windSpeed}%</li>`);
@@ -166,7 +175,7 @@ function displayData() {
 }
 
 //function to convert unix codes to times?
-function unixConversion() {
+function conversion() {
 
 }
 

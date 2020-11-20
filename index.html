@@ -27,8 +27,8 @@
             <section id="overview-section">
                 <h2>Overview</h2>
                 <div class="overview-content">
-                    <p class="app-description">This web page helps you plan your day at the beach by providing current weather information, high tide and low tide times for the day, and sun and moon movement.</p>
-                    <p class="app-instructions">Simply enter your location, or the location of the beach you plan to visit or explore, in the map section below.</p>
+                    <p class="app-description">Plan your day at the beach by obtaining current weather information, high tide and low tide times for the day, and sun and moon movement.</p>
+                    <p class="app-instructions">Simply enter the coastal city's location, or the location of the beach you plan to visit, below.</p>
                 </div>
                 
             </section>
@@ -42,13 +42,15 @@
                     <input class="location-submit" type="submit" value="Search">
                 </form>
 
-                <h4 class="invalid-message" hidden>Something went wrong. Please try again using the following format: Address, City, State, Zip-Code, Country!</h4>
-                <h4 hidden>Something went wrong. Please make sure that your device's location is on and try again!</h4>
+                <h4 class="invalid-message" hidden>Something went wrong. Please try again using the following format: Address, City, State, Zip-Code, Country! Keep in mind, the more detailed the location, the more accurate the results!</h4>
+                
 
             </section>
 
             <section id="results-section">
                 <h2>Results</h2>
+                <h3 class="city" hidden></h3>
+                <p class="city-message" hidden>If this is not the location you wanted, please search the location using more details. The more detailed the location's address, the more accurate the results!</p>
                 <div class="results-categories">
                     <div class="weather">
                         <h3>Weather</h3>
