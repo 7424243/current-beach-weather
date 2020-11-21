@@ -99,7 +99,7 @@ function getCoordinates(location) {
             myData.lat = responseJson.results[0].geometry.lat;
             myData.lng = responseJson.results[0].geometry.lng;
             myData.timeZone = responseJson.results[0].annotations.timezone.name;
-           
+           console.log(responseJson);
             getWeatherData();
             
         })
@@ -142,7 +142,7 @@ function getWeatherData() {
             myData.weatherTypeDescription = responseJson.weather[0].description;
             myData.weatherTypeIcon = responseJson.weather[0].icon;
             myData.windSpeed = responseJson.wind.speed;
-
+            console.log(responseJson);
             getTideData();
         })
         .catch(function (error) {
@@ -154,7 +154,7 @@ function getWeatherData() {
 
 //function to get tide data
 function getTideData() {
-    
+    /*
     const tideParams = {
         lat: myData.lat,
         lng: myData.lng
@@ -175,17 +175,17 @@ function getTideData() {
     .then(function (responseJson) {
 
         myData.tides = [responseJson.data[1], responseJson.data[2], responseJson.data[3], responseJson.data[4]]
- 
+        console.log(responseJson);
         getAstronomyData();
     })
     .catch(function (error) {
         $('.submit-message').attr('hidden', true);
         $('.invalid-message').removeAttr('hidden');
     });
-    
-    
-   //myData.tides = [{time: "2020-11-21T11:40:00+00:00", type: "high"}, {time: "2020-11-21T16:06:00+00:00", type: "low"}, {time: "2020-11-21T21:24:00+00:00", type: "high"}, {time: "2020-11-22T05:07:00+00:00", type: "low"}]
-   //getAstronomyData();
+    */
+    //San Diego
+   myData.tides = [{time: "2020-11-21T11:40:00+00:00", type: "high"}, {time: "2020-11-21T16:06:00+00:00", type: "low"}, {time: "2020-11-21T21:24:00+00:00", type: "high"}, {time: "2020-11-22T05:07:00+00:00", type: "low"}]
+   getAstronomyData();
 
 }
 
@@ -199,9 +199,9 @@ function getAstronomyData() {
 
     const astronomyQueryString = formatQueryParams(astronomyParams);
     const urlAstronomy = baseAstronomyURLStormGlass + '?' + astronomyQueryString;
-
+    
     console.log(urlAstronomy);
-
+/*
     fetch(urlAstronomy, {
         headers: {
             'Authorization': apiKeyStormGlass
@@ -214,6 +214,7 @@ function getAstronomyData() {
         myData.moonPhase = responseJson.data[0].moonPhase.current.text;
         myData.sunrise = responseJson.data[0].sunrise;
         myData.sunset = responseJson.data[0].sunset;
+        console.log(responseJson);
         console.log(myData);
 
         displayData();
@@ -222,13 +223,14 @@ function getAstronomyData() {
         $('.submit-message').attr('hidden', true);
         $('.invalid-message').removeAttr('hidden');
     });
-   
+   */
 
-    //myData.moonPhase = "Waxing crescent";
-   //myData.sunrise = "2020-11-21T14:26:08+00:00";
-   //myData.sunset = "2020-11-22T00:46:12+00:00";
-   //console.log(myData);
-   //displayData();
+    //San Diego
+    myData.moonPhase = "Waxing crescent";
+    myData.sunrise = "2020-11-21T14:26:08+00:00";
+    myData.sunset = "2020-11-22T00:46:12+00:00";
+    console.log(myData);
+    displayData();
 
 }
 
@@ -253,14 +255,14 @@ function displayData() {
     $('.results-weather').append(`<li>Humidity: ${myData.humidity}%</li>`);
     $('.results-weather').removeAttr('hidden');
 
-    $('.results-tides').append(`<li>${myData.tides[0].type}: ${new Date(myData.tides[0].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone})}</li>`);
-    $('.results-tides').append(`<li>${myData.tides[1].type}: ${new Date(myData.tides[1].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone})}</li>`);
-    $('.results-tides').append(`<li>${myData.tides[2].type}: ${new Date(myData.tides[2].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone})}</li>`);
-    $('.results-tides').append(`<li>${myData.tides[3].type}: ${new Date(myData.tides[3].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone})}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[0].type}: ${new Date(myData.tides[0].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[1].type}: ${new Date(myData.tides[1].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[2].type}: ${new Date(myData.tides[2].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
+    $('.results-tides').append(`<li>${myData.tides[3].type}: ${new Date(myData.tides[3].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-tides').removeAttr('hidden');
 
-    $('.results-sun-moon').append(`<li>Sunrise: ${new Date(myData.sunrise).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone})}</li>`);
-    $('.results-sun-moon').append(`<li>Sunset: ${new Date(myData.sunset).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone})}</li>`);
+    $('.results-sun-moon').append(`<li>Sunrise: ${new Date(myData.sunrise).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
+    $('.results-sun-moon').append(`<li>Sunset: ${new Date(myData.sunset).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-sun-moon').append(`<li>Moon Phase: ${myData.moonPhase}</li>`);
     $('.results-sun-moon').removeAttr('hidden');
 
