@@ -11,7 +11,7 @@ footer {
 }
 
 footer p { 
-    font-size: 10px;
+    font-size: 13px;
 }
 
 h1 {
@@ -45,7 +45,6 @@ input[type=submit], input[type=text] {
     font-family: 'Nanum Gothic', sans-serif;
     border-radius: 5px;
     border: thin solid darkgray;
- 
 }
 
 label {
@@ -62,6 +61,7 @@ nav {
     flex-direction: row;
     justify-content: center;
     font-family: 'Nanum Gothic', sans-serif;
+
 }
 
 nav ul {

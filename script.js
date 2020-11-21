@@ -152,7 +152,7 @@ function getWeatherData() {
 
 //function to get tide data
 function getTideData() {
-    
+    /*
     const tideParams = {
         lat: myData.lat,
         lng: myData.lng
@@ -180,16 +180,16 @@ function getTideData() {
         $('.submit-message').attr('hidden', true);
         $('.invalid-message').removeAttr('hidden');
     });
+    */
     
-    
-   //myData.tides = [{time: "2020-11-21T11:40:00+00:00", type: "high"}, {time: "2020-11-21T16:06:00+00:00", type: "low"}, {time: "2020-11-21T21:24:00+00:00", type: "high"}, {time: "2020-11-22T05:07:00+00:00", type: "low"}]
-   //getAstronomyData();
+   myData.tides = [{time: "2020-11-21T11:40:00+00:00", type: "high"}, {time: "2020-11-21T16:06:00+00:00", type: "low"}, {time: "2020-11-21T21:24:00+00:00", type: "high"}, {time: "2020-11-22T05:07:00+00:00", type: "low"}]
+   getAstronomyData();
 
 }
 
 //function to get astronomy data
 function getAstronomyData() {
-    
+    /*
     const astronomyParams = {
         lat: myData.lat,
         lng: myData.lng
@@ -213,20 +213,20 @@ function getAstronomyData() {
         myData.sunrise = responseJson.data[0].sunrise;
         myData.sunset = responseJson.data[0].sunset;
         console.log(myData);
-        
+
         displayData();
     })
     .catch(function (error) {
         $('.submit-message').attr('hidden', true);
         $('.invalid-message').removeAttr('hidden');
     });
-   
+   */
 
-   //myData.moonPhase = "Waxing crescent";
-   //myData.sunrise = "2020-11-21T14:26:08+00:00";
-   //myData.sunset = "2020-11-22T00:46:12+00:00";
-   //console.log(myData);
-   //displayData();
+   myData.moonPhase = "Waxing crescent";
+   myData.sunrise = "2020-11-21T14:26:08+00:00";
+   myData.sunset = "2020-11-22T00:46:12+00:00";
+   console.log(myData);
+   displayData();
 
 }
 
