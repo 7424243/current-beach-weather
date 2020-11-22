@@ -92,8 +92,11 @@ function getCoordinates(location) {
 
     fetch(urlOpenCage)
         .then(function (response) {
-            return response.json();
-        }) 
+            if (response.ok) {
+                return response.json();
+              }
+              throw new Error(response.statusText);
+        })
         .then(function (responseJson) {
 
             myData.lat = responseJson.results[0].geometry.lat;
@@ -130,8 +133,11 @@ function getWeatherData() {
     console.log(urlOpenWeather);
     
     fetch(urlOpenWeather)
-        .then(function(response) {
-            return response.json();
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.statusText);
         })
         .then(function (responseJson) {
 
@@ -154,7 +160,7 @@ function getWeatherData() {
 
 //function to get tide data
 function getTideData() {
-    /*
+    
     const tideParams = {
         lat: myData.lat,
         lng: myData.lng
@@ -169,23 +175,27 @@ function getTideData() {
         headers: {
             'Authorization': apiKeyStormGlass
         }
-    }).then(function (response) {
-        return response.json()
-    })
-    .then(function (responseJson) {
+        })        
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+              }
+              throw new Error(response.statusText);
+        })
+        .then(function (responseJson) {
 
-        myData.tides = [responseJson.data[1], responseJson.data[2], responseJson.data[3], responseJson.data[4]]
-        console.log(responseJson);
-        getAstronomyData();
-    })
-    .catch(function (error) {
-        $('.submit-message').attr('hidden', true);
-        $('.invalid-message').removeAttr('hidden');
+            myData.tides = [responseJson.data[1], responseJson.data[2], responseJson.data[3], responseJson.data[4]]
+            console.log(responseJson);
+            getAstronomyData();
+        })
+        .catch(function (error) {
+            $('.submit-message').attr('hidden', true);
+            $('.invalid-message').removeAttr('hidden');
     });
-    */
+    
     //San Diego
-   myData.tides = [{time: "2020-11-21T11:40:00+00:00", type: "high"}, {time: "2020-11-21T16:06:00+00:00", type: "low"}, {time: "2020-11-21T21:24:00+00:00", type: "high"}, {time: "2020-11-22T05:07:00+00:00", type: "low"}]
-   getAstronomyData();
+  //myData.tides = [{time: "2020-11-21T11:40:00+00:00", type: "high"}, {time: "2020-11-21T16:06:00+00:00", type: "low"}, {time: "2020-11-21T21:24:00+00:00", type: "high"}, {time: "2020-11-22T05:07:00+00:00", type: "low"}]
+   //getAstronomyData();
 
 }
 
@@ -201,36 +211,40 @@ function getAstronomyData() {
     const urlAstronomy = baseAstronomyURLStormGlass + '?' + astronomyQueryString;
     
     console.log(urlAstronomy);
-/*
+
     fetch(urlAstronomy, {
         headers: {
             'Authorization': apiKeyStormGlass
         }
-    }).then(function (response) {
-        return response.json()
-    })
-    .then(function (responseJson) {
+        })        
+        .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error(response.statusText);
+            })
+        .then(function (responseJson) {
 
-        myData.moonPhase = responseJson.data[0].moonPhase.current.text;
-        myData.sunrise = responseJson.data[0].sunrise;
-        myData.sunset = responseJson.data[0].sunset;
-        console.log(responseJson);
-        console.log(myData);
+            myData.moonPhase = responseJson.data[0].moonPhase.current.text;
+            myData.sunrise = responseJson.data[0].sunrise;
+            myData.sunset = responseJson.data[0].sunset;
+            console.log(responseJson);
+            console.log(myData);
 
-        displayData();
-    })
-    .catch(function (error) {
-        $('.submit-message').attr('hidden', true);
-        $('.invalid-message').removeAttr('hidden');
+            displayData();
+        })
+        .catch(function (error) {
+            $('.submit-message').attr('hidden', true);
+            $('.invalid-message').removeAttr('hidden');
     });
-   */
+   
 
     //San Diego
-    myData.moonPhase = "Waxing crescent";
-    myData.sunrise = "2020-11-21T14:26:08+00:00";
-    myData.sunset = "2020-11-22T00:46:12+00:00";
-    console.log(myData);
-    displayData();
+    //myData.moonPhase = "Waxing crescent";
+    //myData.sunrise = "2020-11-21T14:26:08+00:00";
+    //myData.sunset = "2020-11-22T00:46:12+00:00";
+    //console.log(myData);
+    //displayData();
 
 }
 
@@ -241,6 +255,7 @@ function displayData() {
     $('.results-weather').empty();
     $('.results-tides').empty();
     $('.results-sun-moon').empty();
+    $('.invalid-message').attr('hidden', true);
     
 
     
