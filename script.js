@@ -21,6 +21,7 @@ function getBrowserLocation() {
     $('.browser-location-form').submit(event => {
         event.preventDefault();
         $('.submit-message').removeAttr('hidden');
+        $('.invalid-message').attr('hidden', true);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 displayPosition,
@@ -29,6 +30,7 @@ function getBrowserLocation() {
             );
         }  else {
             alert('Geolocation is not supported by this browser.');
+            $('.submit-message').attr('hidden', true);
         };
     });
         
@@ -61,6 +63,7 @@ function watchSearchButton() {
         const location = $('.location-text-input').val();
         console.log(location);
         $('.submit-message').removeAttr('hidden');
+        $('.invalid-message').attr('hidden', true);
         getCoordinates(location);
     });
 }
@@ -102,6 +105,7 @@ function getCoordinates(location) {
             myData.lat = responseJson.results[0].geometry.lat;
             myData.lng = responseJson.results[0].geometry.lng;
             myData.timeZone = responseJson.results[0].annotations.timezone.name;
+            
            console.log(responseJson);
             getWeatherData();
             
@@ -148,6 +152,7 @@ function getWeatherData() {
             myData.weatherTypeDescription = responseJson.weather[0].description;
             myData.weatherTypeIcon = responseJson.weather[0].icon;
             myData.windSpeed = responseJson.wind.speed;
+            
             console.log(responseJson);
             getTideData();
         })
