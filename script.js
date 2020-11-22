@@ -52,6 +52,7 @@ function displayError(error) {
     3: 'Request timeout'
     };
     alert('Error: ' + errors[error.code] + '. Please try typing in the desired location in the input on the web page.');
+    $('.submit-message').attr('hidden', true);
 }
 
     
