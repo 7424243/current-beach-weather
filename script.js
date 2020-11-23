@@ -64,6 +64,11 @@ function displayError(error) {
 function watchSearchButton() {
     $('.location-form').submit(event => {
         event.preventDefault();
+        $('.city').attr('hidden', true);
+        $('.city-warning').attr('hidden',true);
+        $('.results-weather').empty();
+        $('.results-tides').empty();
+        $('.results-sun-moon').empty();
         const location = $('.location-text-input').val();
         $('.submit-message').removeAttr('hidden');
         $('.invalid-message').attr('hidden', true);
