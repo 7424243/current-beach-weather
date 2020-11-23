@@ -21,30 +21,29 @@ h1 {
 }
 
 h2, h3 {
-    text-align: center;
     font-family: 'Nanum Gothic', sans-serif;
+    text-align: center;
 }
 
 header {
-    text-align: center;
     background-color: #BBDBF6;
     margin: 0;
     padding: 10px 10%;
+    text-align: center;
 }
 
 html, body {
-    width: 100%;
-    min-height: 100%;
     height: 100%;
     margin: 0px;
-    padding: 0px;
+    min-height: 100%;
     overflow-x: hidden;
-
+    padding: 0px;
+    width: 100%;
 }
 
 img {
-    width: 7%;
     height: 7%;
+    width: 7%;
 }
 
 input[type=submit] {
@@ -52,10 +51,10 @@ input[type=submit] {
 }
 
 input[type=submit], input[type=text] {
-    padding: 8px 18px;
-    font-family: 'Nanum Gothic', sans-serif;
-    border-radius: 5px;
     border: thin solid darkgray;
+    border-radius: 5px;
+    font-family: 'Nanum Gothic', sans-serif;
+    padding: 8px 18px;
 }
 
 label {
@@ -70,20 +69,19 @@ li {
 nav {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     font-family: 'Nanum Gothic', sans-serif;
-
+    justify-content: center; 
 }
 
 nav ul {
     display: flex;
-    padding-left: 0;
     list-style: none;
+    padding-left: 0;
 }
   
 nav ul li a {
-    text-decoration: none;
     margin: 0 20px 0 0;
+    text-decoration: none;
 }
 
 p {
@@ -107,8 +105,8 @@ p {
 }
 
 .location-form, .browser-location-form {
-    text-align: center;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .location-text-input {
@@ -131,53 +129,46 @@ p {
 }
 
 .submit-message {
-    font-family: 'Nanum Gothic', sans-serif;
     color: darkslateblue;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 
-
-
-
 /* Psuedo Classes */
-a:link {color: black;}
-a:visited {color: darkslategray;}
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: darkslategray;
+}
 
 
 /* IDs */
-
 #location-section {
     background-color: #FDD8B4;
-    padding: 20px 10%;
     min-height: calc(30vh - 40px);
-
+    padding: 20px 10%;
 }
 
 #overview-section {
     background-color: #DBE4CF;
+    min-height: calc(30vh - 40px);
     padding: 20px 10%;
     text-align: center;
-    min-height: calc(30vh - 40px);
 }
 
 #results-section {
     background-color: #DBE4CF;
-    padding: 20px 5%;
     min-height: calc(30vh - 40px);
+    padding: 20px 5%;
 }
-
 
 
 /* Media Query */
 
-@media all and (min-width: 800px) {
-  
+@media all and (min-width: 800px) {  
     nav {
-        flex-direction: row;
-    }
-
-    .results-categories {
-        display: flex;
         flex-direction: row;
     }
 
@@ -185,4 +176,8 @@ a:visited {color: darkslategray;}
         width: 30%;
     }
 
-  }
+    .results-categories {
+        display: flex;
+        flex-direction: row;
+    }
+}
