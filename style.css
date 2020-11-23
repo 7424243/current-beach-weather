@@ -181,3 +181,9 @@ a:visited {
         flex-direction: row;
     }
 }
+
+@media all and (max-width: 400px) {
+    .location-label {
+        display: block;
+    }
+}
