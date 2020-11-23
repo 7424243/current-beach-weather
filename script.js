@@ -23,6 +23,11 @@ function getBrowserLocation() {
         event.preventDefault();
         $('.submit-message').removeAttr('hidden');
         $('.invalid-message').attr('hidden', true);
+        $('.city').attr('hidden', true);
+        $('.city-warning').attr('hidden',true);
+        $('.results-weather').empty();
+        $('.results-tides').empty();
+        $('.results-sun-moon').empty();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 displayPosition,
