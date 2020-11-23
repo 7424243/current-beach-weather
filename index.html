@@ -1,101 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beach Weather</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" type="text/css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">    
-    <link rel="stylesheet" href="style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Beach Weather</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">    
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-<body>
+    <body>
 
-    <header>
-        <h1>Current Beach Weather</h1>
-        <nav>
-            <ul>
-                <li><a href="#overview-section">Overview</a></li>
-                <li><a href="#location-section">Location</a></li>
-                <li><a href="#results-section">Results</a></li>
-            </ul>
-        </nav>
-    </header>
+        <header>
+            <h1>Current Beach Weather</h1>
+            <nav>
+                <ul>
+                    <li><a href="#overview-section">Overview</a></li>
+                    <li><a href="#location-section">Location</a></li>
+                    <li><a href="#results-section">Results</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <main>
-        <div>
-            <section id="overview-section">
-                <h2>Overview</h2>
-                <div class="overview-content">
-                    <p class="app-description">Plan your day at the beach by obtaining current weather information, high tide and low tide times for the day, and sun and moon movement.</p>
-                    <p class="app-instructions">Simply enter the <strong>coastal</strong> city's location, or the location of the beach you plan to visit, below.</p>
-                </div>
-                
-            </section>
-            
-            <section id="location-section">
-                <h2>Location</h2>
-                <form class="location-form">
-                    <label for="search-input" class="location-label">Location:</label>
-                    <input id="search-input" class="location-text-input" type="text" placeholder="Ex: Address, City, State, Zip-Code">
-
-                    <input class="location-submit" type="submit" value="Search">
-                </form>
-                <form class="browser-location-form">
-                    <input class="browser-location" type="submit" value="Use Current Location">
-                </form>
-
-                <h3 class="invalid-message" hidden>Something went wrong. Please try again using the following format: Address, City, State, Zip-Code! Keep in mind, the more detailed the location, the more accurate the results!</h3>
-                <h3 class="submit-message" hidden>Collecting data...</h3>
-                
-
-            </section>
-
-            <section id="results-section">
-                <h2>Results</h2>
-                <h3 class="city" hidden>City: </h3>
-                <p class="city-warning" hidden>~ If this is not the city/place you want, please try searching the location again with more details ~</p>
-                
-                <div class="results-categories">
-                    <div class="weather">
-                        <h3>☁️ Current Weather ☁️</h3>
-                        <ul class="results-weather" hidden>
-                        </ul>
+        <main>
+            <div>
+                <section id="overview-section">
+                    <h2>Overview</h2>
+                    <div class="overview-content">
+                        <p class="app-description">Plan your day at the beach by obtaining current weather information, high tide and low tide times for the day, and sun and moon movement.</p>
+                        <p class="app-instructions">Simply enter the <strong>coastal</strong> city's location, or the location of the beach you plan to visit, below.</p>
                     </div>
-                    <div class="tides">
-                        <h3>🌊 Today's Tides 🌊</h3>
-                        <ul class="results-tides" hidden>
-                        </ul>
-                    </div>
-                    <div class="sun-moon">
-                        <h3>☀️ Today's Sun & Moon 🌙</h3>
-                        <ul class="results-sun-moon" hidden>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
+                    
+                </section>
+                
+                <section id="location-section">
+                    <h2>Location</h2>
+                    <form class="location-form">
+                        <label for="search-input" class="location-label">Location:</label>
+                        <input id="search-input" class="location-text-input" type="text" placeholder="Ex: Address, City, State, Zip-Code">
+                        <input class="location-submit" type="submit" value="Search">
+                    </form>
+                    <form class="browser-location-form">
+                        <input class="browser-location" type="submit" value="Use Current Location">
+                    </form>
+                    <h3 class="invalid-message" hidden>Something went wrong. Please try again using the following format: Address, City, State, Zip-Code! Keep in mind, the more detailed the location, the more accurate the results!</h3>
+                    <h3 class="submit-message" hidden>Collecting data...</h3>
+                </section>
 
+                <section id="results-section">
+                    <h2>Results</h2>
+                    <h3 class="city" hidden>City: </h3>
+                    <p class="city-warning" hidden>~ If this is not the city/place you want, please try searching the location again with more details. ~</p>
+                    <div class="results-categories">
+                        <div class="weather">
+                            <h3>☁️ Current Weather ☁️</h3>
+                            <ul class="results-weather" hidden>
+                            </ul>
+                        </div>
+                        <div class="tides">
+                            <h3>🌊 Today's Tides 🌊</h3>
+                            <ul class="results-tides" hidden>
+                            </ul>
+                        </div>
+                        <div class="sun-moon">
+                            <h3>☀️ Today's Sun & Moon 🌙</h3>
+                            <ul class="results-sun-moon" hidden>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
 
-    <footer>
-        <p>© Samantha Sheets 2020</p>
-        <div class="img-container">
-            <img src="images/shell.png" alt=" outline of a shell">
-            <img src="images/shell.png" alt=" outline of a shell">
-            <img src="images/shell.png" alt=" outline of a shell">
-            <img src="images/shell.png" alt=" outline of a shell">
-            <img src="images/shell.png" alt=" outline of a shell">
-            <img src="images/shell.png" alt=" outline of a shell">
-            <img src="images/shell.png" alt=" outline of a shell">
-            <img src="images/shell.png" alt=" outline of a shell">
-            <img src="images/shell.png" alt=" outline of a shell">
-        </div>
-    </footer>
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-</body>
+        <footer>
+            <p>© Samantha Sheets 2020</p>
+            <div class="img-container">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+                <img src="images/sand-dollar.png" alt=" outline of a sand dollar">
+            </div>
+        </footer>
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
