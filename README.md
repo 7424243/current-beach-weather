@@ -4,7 +4,7 @@ A current beach weather application. Users can plan their beach day by accessing
 
 ## Live Demo
 
-[Live Demo] (https://7424243.github.io/current-beach-weather/)
+[Live Demo](https://7424243.github.io/current-beach-weather/)
 
 ## Screenshots
 
