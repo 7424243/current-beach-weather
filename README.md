@@ -10,15 +10,15 @@ A current beach weather application. Users cna plan their beach day by accessing
 
 ### Landing Page:
 
-! [landing page] (screenshots/landing-page.png)
+![landing page image](screenshots/landing-page.png)
 
 ### Location Search Section:
 
-! [location search section] (screenshots/location-search-section.png)
+![location search section image](screenshots/location-search-section.png)
 
 ### Results Section:
 
-! [results section] (screenshots/results-section.png)
+![results section image](screenshots/results-section.png)
 
 ## Summary
 
