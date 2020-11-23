@@ -14,6 +14,7 @@ const baseTideURLStormGlass = 'https://api.stormglass.io/v2/tide/extremes/point'
 const baseAstronomyURLStormGlass = 'https://api.stormglass.io/v2/astronomy/point';
 
 
+//global variable to hold appropriate API data
 let myData = {};
 
 //functions to handle browser location
@@ -32,84 +33,70 @@ function getBrowserLocation() {
             alert('Geolocation is not supported by this browser.');
             $('.submit-message').attr('hidden', true);
         };
-    });
-        
+    });   
 }
+
 function displayPosition(position) {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     console.log(tz);
     myData.lat = position.coords.latitude;
     myData.lng = position.coords.longitude;
     myData.timeZone = tz;
-    
     getWeatherData();
 }
 
 function displayError(error) {
     var errors = {
-    1: 'Permission denied',
-    2: 'Position unavailable',
-    3: 'Request timeout'
+        1: 'Permission denied',
+        2: 'Position unavailable',
+        3: 'Request timeout'
     };
     alert('Error: ' + errors[error.code] + '. Please try typing in the desired location in the input on the web page.');
     $('.submit-message').attr('hidden', true);
-}
-
-    
+}    
 
 //function to handle search input
 function watchSearchButton() {
     $('.location-form').submit(event => {
         event.preventDefault();
         const location = $('.location-text-input').val();
-        console.log(location);
         $('.submit-message').removeAttr('hidden');
         $('.invalid-message').attr('hidden', true);
         getCoordinates(location);
     });
 }
 
-
 //function to format query params
 function formatQueryParams(params) {
     const queryItems = Object.keys(params)
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
     return queryItems.join('&');
-  }
+}
 
 
 /*** Location Section ***/
 
 //function to get lat/long coordinates in console.log (for errors, make sure to unhide <h4> error message)
 function getCoordinates(location) {
-    
     const params = {
         key: apiKeyOpenCage,
         q: location,
         limit: 1
     };
-
     const queryString = formatQueryParams(params);
     const urlOpenCage = baseURLOpenCage + '?' + queryString;
-
-    console.log(urlOpenCage);
-
     fetch(urlOpenCage)
         .then(function (response) {
             if (response.ok) {
                 return response.json();
-              }
-              throw new Error(response.statusText);
+            }
+            throw new Error(response.statusText);
         })
         .then(function (responseJson) {
-
             myData.lat = responseJson.results[0].geometry.lat;
             myData.lng = responseJson.results[0].geometry.lng;
             myData.timeZone = responseJson.results[0].annotations.timezone.name;
-            
-           console.log(responseJson);
             getWeatherData();
-            
         })
         .catch(function (error) {
             $('.submit-message').attr('hidden', true);
@@ -118,25 +105,18 @@ function getCoordinates(location) {
 }
 
 
-
-
 /*** Results Section Functions ***/
 
 //function to get weather data
 function getWeatherData() {
-
     const weatherParams = {
         lat: myData.lat,
         lon: myData.lng,
         units: 'imperial',
         appid: apiKeyOpenWeather,
     };
-
     const weatherQueryString = formatQueryParams(weatherParams);
     const urlOpenWeather = baseURLOpenWeather + '?' + weatherQueryString;
-
-    console.log(urlOpenWeather);
-    
     fetch(urlOpenWeather)
         .then(function (response) {
             if (response.ok) {
@@ -145,7 +125,6 @@ function getWeatherData() {
             throw new Error(response.statusText);
         })
         .then(function (responseJson) {
-
             myData.cityName = responseJson.name;
             myData.temp = responseJson.main.temp;
             myData.humidity = responseJson.main.humidity;
@@ -153,8 +132,6 @@ function getWeatherData() {
             myData.weatherTypeDescription = responseJson.weather[0].description;
             myData.weatherTypeIcon = responseJson.weather[0].icon;
             myData.windSpeed = responseJson.wind.speed;
-            
-            console.log(responseJson);
             getTideData();
         })
         .catch(function (error) {
@@ -163,20 +140,14 @@ function getWeatherData() {
         });
 }
 
-
 //function to get tide data
 function getTideData() {
-    
     const tideParams = {
         lat: myData.lat,
         lng: myData.lng
     };
-
     const tideQueryString = formatQueryParams(tideParams);
     const urlTides = baseTideURLStormGlass + '?' + tideQueryString;
-
-    console.log(urlTides);
-
     fetch(urlTides, {
         headers: {
             'Authorization': apiKeyStormGlass
@@ -189,35 +160,23 @@ function getTideData() {
               throw new Error(response.statusText);
         })
         .then(function (responseJson) {
-
             myData.tides = [responseJson.data[1], responseJson.data[2], responseJson.data[3], responseJson.data[4]]
-            console.log(responseJson);
             getAstronomyData();
         })
         .catch(function (error) {
             $('.submit-message').attr('hidden', true);
             $('.invalid-message').removeAttr('hidden');
-    });
-    
-    //San Diego
-  //myData.tides = [{time: "2020-11-21T11:40:00+00:00", type: "high"}, {time: "2020-11-21T16:06:00+00:00", type: "low"}, {time: "2020-11-21T21:24:00+00:00", type: "high"}, {time: "2020-11-22T05:07:00+00:00", type: "low"}]
-   //getAstronomyData();
-
+        });
 }
 
 //function to get astronomy data
 function getAstronomyData() {
-    
     const astronomyParams = {
         lat: myData.lat,
         lng: myData.lng
     };
-
     const astronomyQueryString = formatQueryParams(astronomyParams);
     const urlAstronomy = baseAstronomyURLStormGlass + '?' + astronomyQueryString;
-    
-    console.log(urlAstronomy);
-
     fetch(urlAstronomy, {
         headers: {
             'Authorization': apiKeyStormGlass
@@ -230,63 +189,47 @@ function getAstronomyData() {
                 throw new Error(response.statusText);
             })
         .then(function (responseJson) {
-
             myData.moonPhase = responseJson.data[0].moonPhase.current.text;
             myData.sunrise = responseJson.data[0].sunrise;
             myData.sunset = responseJson.data[0].sunset;
-            console.log(responseJson);
-            console.log(myData);
-
             displayData();
         })
         .catch(function (error) {
             $('.submit-message').attr('hidden', true);
             $('.invalid-message').removeAttr('hidden');
-    });
-   
-
-    //San Diego
-    //myData.moonPhase = "Waxing crescent";
-    //myData.sunrise = "2020-11-21T14:26:08+00:00";
-    //myData.sunset = "2020-11-22T00:46:12+00:00";
-    //console.log(myData);
-    //displayData();
-
+        });
 }
 
 //function to display weather data
 function displayData() {
-
+    //use jQuery to make sure all results are empty
     $('.city').empty();
     $('.results-weather').empty();
     $('.results-tides').empty();
     $('.results-sun-moon').empty();
     $('.invalid-message').attr('hidden', true);
-    
-
-    
+    //use jQuery to assign new value to .city and remove the hidden attribute
     $('.city').append('City: ' + myData.cityName);
     $('.city').removeAttr('hidden');
     $('.city-warning').removeAttr('hidden')
-
-    
+    //use jQuery to display Current Weather results
     $('.results-weather').append(`<li>Temperature: ${myData.temp}˚F</li>`);
     $('.results-weather').append(`<li>Weather Type: ${myData.weatherType} - ${myData.weatherTypeDescription}</li>`);
     $('.results-weather').append(`<li>Wind Speed: ${myData.windSpeed}mph</li>`);
     $('.results-weather').append(`<li>Humidity: ${myData.humidity}%</li>`);
     $('.results-weather').removeAttr('hidden');
-
+    //use jQuery to display Today's Tides
     $('.results-tides').append(`<li>${myData.tides[0].type}: ${new Date(myData.tides[0].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-tides').append(`<li>${myData.tides[1].type}: ${new Date(myData.tides[1].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-tides').append(`<li>${myData.tides[2].type}: ${new Date(myData.tides[2].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-tides').append(`<li>${myData.tides[3].type}: ${new Date(myData.tides[3].time).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-tides').removeAttr('hidden');
-
+    //use jQuery to display sun and moon movement
     $('.results-sun-moon').append(`<li>Sunrise: ${new Date(myData.sunrise).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-sun-moon').append(`<li>Sunset: ${new Date(myData.sunset).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-sun-moon').append(`<li>Moon Phase: ${myData.moonPhase}</li>`);
     $('.results-sun-moon').removeAttr('hidden');
-
+    //use jQuery to clear location search input and the submit-message
     $('.submit-message').attr('hidden', true);
     $('.location-text-input').val('');
 }
