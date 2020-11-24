@@ -43,7 +43,6 @@ function getBrowserLocation() {
 
 function displayPosition(position) {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    console.log(tz);
     myData.lat = position.coords.latitude;
     myData.lng = position.coords.longitude;
     myData.timeZone = tz;
