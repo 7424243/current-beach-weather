@@ -21,7 +21,7 @@ let myData = {};
 function getBrowserLocation() {
     $('.browser-location-form').submit(event => {
         event.preventDefault();
-        $('.submit-message').removeAttr('hidden');
+        $('.lds-roller').removeAttr('hidden');
         $('.invalid-message').attr('hidden', true);
         $('.city').attr('hidden', true);
         $('.city-warning').attr('hidden',true);
@@ -36,7 +36,7 @@ function getBrowserLocation() {
             );
         }  else {
             alert('Geolocation is not supported by this browser.');
-            $('.submit-message').attr('hidden', true);
+            $('.lds-roller').attr('hidden', true);
         };
     });   
 }
@@ -56,7 +56,7 @@ function displayError(error) {
         3: 'Request timeout'
     };
     alert('Error: ' + errors[error.code] + '. Please try typing in the desired location in the input on the web page.');
-    $('.submit-message').attr('hidden', true);
+    $('.lds-roller').attr('hidden', true);
 }    
 
 //function to handle search input
@@ -69,7 +69,7 @@ function watchSearchButton() {
         $('.results-tides').empty();
         $('.results-sun-moon').empty();
         const location = $('.location-text-input').val();
-        $('.submit-message').removeAttr('hidden');
+        $('.lds-roller').removeAttr('hidden');
         $('.invalid-message').attr('hidden', true);
         getCoordinates(location);
     });
@@ -108,7 +108,7 @@ function getCoordinates(location) {
             getWeatherData();
         })
         .catch(function (error) {
-            $('.submit-message').attr('hidden', true);
+            $('.lds-roller').attr('hidden', true);
             $('.invalid-message').removeAttr('hidden');
         });
 }
@@ -144,7 +144,7 @@ function getWeatherData() {
             getTideData();
         })
         .catch(function (error) {
-            $('.submit-message').attr('hidden', true);
+            $('.lds-roller').attr('hidden', true);
             $('.invalid-message').removeAttr('hidden');
         });
 }
@@ -173,7 +173,7 @@ function getTideData() {
             getAstronomyData();
         })
         .catch(function (error) {
-            $('.submit-message').attr('hidden', true);
+            $('.lds-roller').attr('hidden', true);
             $('.invalid-message').removeAttr('hidden');
         });
 }
@@ -204,7 +204,7 @@ function getAstronomyData() {
             displayData();
         })
         .catch(function (error) {
-            $('.submit-message').attr('hidden', true);
+            $('.lds-roller').attr('hidden', true);
             $('.invalid-message').removeAttr('hidden');
         });
 }
@@ -238,8 +238,8 @@ function displayData() {
     $('.results-sun-moon').append(`<li>Sunset: ${new Date(myData.sunset).toLocaleTimeString([], {hour12: true, hour: '2-digit', minute: '2-digit', timeZone: myData.timeZone, timeZoneName: 'short'})}</li>`);
     $('.results-sun-moon').append(`<li>Moon Phase: ${myData.moonPhase}</li>`);
     $('.results-sun-moon').removeAttr('hidden');
-    //use jQuery to clear location search input and the submit-message
-    $('.submit-message').attr('hidden', true);
+    //use jQuery to clear location search input and the lds-roller
+    $('.lds-roller').attr('hidden', true);
     $('.location-text-input').val('');
 }
 
