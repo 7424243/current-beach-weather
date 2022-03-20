@@ -1,7 +1,6 @@
 # Current-Beach-Weather
 
 A current beach weather application. Users can plan their beach day by accessing weather and tide information.
-Note: The current API is not accessible anymore so this application is not fully functional but work to utilize a different API's data is being performed.
 
 ## Live Demo
 
