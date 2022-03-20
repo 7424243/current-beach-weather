@@ -3,7 +3,7 @@
 /*** API Keys & Base URLS ***/
 
 //variable to hold apiKeys
-const apiKeyOpenCage = '186aeff2de054932ad6fc90fa36c6c37';
+const apiKeyOpenCage = 'efc970bb31e6499caff4f21361d71c5e';
 const apiKeyOpenWeather = '42f989035320f151b7d2e585ddc2d3f8';
 const apiKeyStormGlass = '1307e8d4-29e9-11eb-8db0-0242ac130002-1307e960-29e9-11eb-8db0-0242ac130002';
 
